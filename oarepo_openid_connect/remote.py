@@ -6,17 +6,34 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Remote application for enabling sign in/up with OpenID Connect. """
-import urllib
+from typing import Optional
+from urllib.parse import urljoin
+
 from flask import session, current_app, redirect, url_for
 from flask_login import current_user
-from flask_oauthlib.client import OAuthException
+from flask_oauthlib.client import OAuthException, OAuthRemoteApp
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount
 from invenio_oauthclient.utils import oauth_link_external_id, oauth_unlink_external_id
-from urllib.parse import urljoin
 from werkzeug.local import LocalProxy
 
 from .utils import get_dict_from_response
+
+
+class LazyOAuthRemoteApp(OAuthRemoteApp):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **{
+            **kwargs,
+            'app_key': 'dummy test'
+        })
+        self.app_key = None
+
+    def _get_property(self, key, default=False):
+        ret = super()._get_property(key, default)
+        if isinstance(ret, LocalProxy):
+            ret = ret._get_current_object()
+        return ret
 
 
 class OarepoAuthOpenIdRemote(object):
@@ -30,7 +47,6 @@ class OarepoAuthOpenIdRemote(object):
     icon = ''
     userinfo_cls = None
 
-
     def remote_app(self) -> dict:
         return dict(
             title=self.name,
@@ -43,18 +59,21 @@ class OarepoAuthOpenIdRemote(object):
                 setup=self.account_setup,
                 view=self.handle_signup,
             ),
+            remote_app=LazyOAuthRemoteApp,
             params=dict(
                 request_token_params={
-                    'scope': LocalProxy(lambda: self.get_scope()),
-                    'show_login': 'true'
+                    # 'scope': LocalProxy(lambda: self.get_scope()),
+                    # 'show_login': 'true'
                 },
                 base_url=LocalProxy(lambda: self.get_base_url()),
                 request_token_url=LocalProxy(lambda: self.get_request_token_url()),
                 access_token_url=LocalProxy(lambda: self.get_access_token_url()),
                 access_token_method=LocalProxy(lambda: self.get_access_token_method()),
                 authorize_url=LocalProxy(lambda: self.get_authorize_url()),
-                app_key=self.CONFIG_OPENID_CREDENTIALS,
                 content_type='application/json',
+                signature_method=LocalProxy(lambda: self.get_signature_method()),
+                consumer_key=LocalProxy(lambda: self.get_consumer_key()),
+                consumer_secret=LocalProxy(lambda: self.get_consumer_secret())
             )
         )
 
@@ -62,10 +81,13 @@ class OarepoAuthOpenIdRemote(object):
         """Return base URL for an OpenIDC provider"""
         return current_app.config[self.CONFIG_OPENID]['base_url']
 
-    def get_request_token_url(self) -> str:
+    def get_request_token_url(self) -> Optional[str]:
         """Return request token endpoint URL for an OpenIDC provider"""
-        return urljoin(self.get_base_url(),
-                       current_app.config[self.CONFIG_OPENID].get('request_token_url', 'request-token'))
+
+        url = current_app.config[self.CONFIG_OPENID].get('request_token_url', None)
+        if not url:
+            return None
+        return urljoin(self.get_base_url(), url)
 
     def get_access_token_url(self) -> str:
         """Return access token endpoint for an OpenIDC provider"""
@@ -86,6 +108,18 @@ class OarepoAuthOpenIdRemote(object):
     def get_scope(self):
         """Return OpenID Connect client scopes"""
         return current_app.config[self.CONFIG_OPENID].get('scope', 'openid email profile')
+
+    def get_signature_method(self):
+        """Return oauth signature method"""
+        return current_app.config[self.CONFIG_OPENID].get('signature_method', 'HMAC-SHA1')
+
+    def get_consumer_key(self):
+        """Return oauth consumer key"""
+        return current_app.config[self.CONFIG_OPENID]['consumer_key']
+
+    def get_consumer_secret(self):
+        """Return oauth consumer key"""
+        return current_app.config[self.CONFIG_OPENID]['consumer_secret']
 
     def get_userinfo(self, remote):
         """ Retrieve external user information from the remote userinfo endpoint.

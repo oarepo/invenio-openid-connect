@@ -1,27 +1,27 @@
 ..
     Copyright (C) 2019 CESNET.
 
-    OArepo OpenID Connect is free software; you can redistribute it and/or modify it
+    Invenio OpenID Connect is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 =======================
- OArepo OpenID Connect
+ Invenio OpenID Connect
 =======================
 
-.. image:: https://img.shields.io/github/license/oarepo-openid-connect/oarepo-openid-connect.svg
-        :target: https://github.com/oarepo-openid-connect/oarepo-openid-connect/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/CESNET/invenio-openid-connect.svg
+        :target: https://github.com/CESNET/invenio-openid-connect/blob/master/LICENSE
 
-.. image:: https://img.shields.io/travis/oarepo-openid-connect/oarepo-openid-connect.svg
-        :target: https://travis-ci.org/oarepo-openid-connect/oarepo-openid-connect
+.. image:: https://img.shields.io/travis/CESNET/invenio-openid-connect.svg
+        :target: https://travis-ci.org/CESNET/invenio-openid-connect
 
-.. image:: https://img.shields.io/coveralls/oarepo-openid-connect/oarepo-openid-connect.svg
-        :target: https://coveralls.io/r/oarepo-openid-connect/oarepo-openid-connect
+.. image:: https://img.shields.io/coveralls/CESNET/oarepo-openid-connect.svg
+        :target: https://coveralls.io/r/CESNET/invenio-openid-connect
 
-.. image:: https://img.shields.io/pypi/v/oarepo-openid-connect.svg
-        :target: https://pypi.org/pypi/oarepo-openid-connect
+.. image:: https://img.shields.io/pypi/v/invenio-openid-connect.svg
+        :target: https://pypi.org/pypi/invenio-openid-connect
 
-OArepo OpenID Connect Auth Backend
+Invenio OpenID Connect Auth Backend
 
 Further documentation is available on
-https://oarepo-openid-connect.readthedocs.io/
+https://invenio-openid-connect.readthedocs.io/
 

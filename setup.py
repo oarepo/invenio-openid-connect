@@ -2,10 +2,10 @@
 #
 # Copyright (C) 2019 CESNET.
 #
-# OArepo OpenID Connect is free software; you can redistribute it and/or modify it
+# Invenio OpenID Connect is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""OArepo OpenID Connect Auth Backend"""
+"""Invenio OpenID Connect Auth Backend"""
 
 import os
 
@@ -35,6 +35,7 @@ install_requires = [
     'Flask-BabelEx>=0.9.3',
     'invenio-records-rest>=1.1.0,<1.2.0',
     'arrow>=0.12.1',
+    'invenio_oauthclient>=1.1.2'
     'invenio[{db},base,auth]~={version}'.format(
         db=DATABASE, version=INVENIO_VERSION),
 ]
@@ -44,16 +45,16 @@ packages = find_packages()
 
 # Get the version string. Cannot be done with import!
 g = {}
-with open(os.path.join('oarepo_openid_connect', 'version.py'), 'rt') as fp:
+with open(os.path.join('invenio_openid_connect', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
 
 setup(
-    name='oarepo-openid-connect',
+    name='invenio-openid-connect',
     version=version,
     description=__doc__,
     long_description=readme,
-    keywords='oarepo-openid-connect Invenio',
+    keywords='invenio-openid-connect Invenio',
     license='MIT',
     author='Miroslav Bauer',
     author_email='bauer@cesnet.cz',
@@ -64,7 +65,7 @@ setup(
     platforms='any',
     entry_points={
         'invenio_base.apps': [
-            'oarepo_openid_connect = oarepo_openid_connect:OArepoOpenIDConnect',
+            'invenio_openid_connect = invenio_openid_connect:InvenioOpenIDConnect',
         ],
     },
     install_requires=install_requires,

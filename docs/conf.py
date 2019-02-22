@@ -60,7 +60,7 @@ author = u'Miroslav Bauer <bauer@cesnet.cz>'
 # Get the version string. Cannot be done with import!
 g = {}
 with open(os.path.join(os.path.dirname(__file__), '..',
-                       'oarepo_openid_connect', 'version.py'),
+                       'invenio_openid_connect', 'version.py'),
           'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']

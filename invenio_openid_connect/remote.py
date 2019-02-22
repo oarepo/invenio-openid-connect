@@ -36,8 +36,8 @@ class LazyOAuthRemoteApp(OAuthRemoteApp):
         return ret
 
 
-class OarepoAuthOpenIdRemote(object):
-    """ OArepo OpenID Connect Abstract Remote App """
+class InvenioAuthOpenIdRemote(object):
+    """ Invenio OpenID Connect Abstract Remote App """
 
     CONFIG_OPENID = 'OPENIDC_CONFIG'
     CONFIG_OPENID_CREDENTIALS = 'OPENIDC_CREDENTIALS'

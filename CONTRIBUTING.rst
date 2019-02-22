@@ -1,7 +1,7 @@
 ..
     Copyright (C) 2019 CESNET.
 
-    OArepo OpenID Connect is free software; you can redistribute it and/or modify it
+    Invenio OpenID Connect is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 Contributing
@@ -16,7 +16,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/oarepo-openid-connect/oarepo-openid-connect/issues.
+Report bugs at https://github.com/CESNET/oarepo-openid-connect/issues.
 
 If you are reporting a bug, please include:
 
@@ -39,15 +39,15 @@ is open to whoever wants to implement it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-OArepo OpenID Connect could always use more documentation, whether as part of the
-official OArepo OpenID Connect docs, in docstrings, or even on the web in blog posts,
+Invenio OpenID Connect could always use more documentation, whether as part of the
+official Invenio OpenID Connect docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at
-https://github.com/oarepo-openid-connect/oarepo-openid-connect/issues.
+https://github.com/CESNET/invenio-openid-connect/issues.
 
 If you are proposing a feature:
 
@@ -59,14 +59,14 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `oarepo-openid-connect` for local development.
+Ready to contribute? Here's how to set up `invenio-openid-connect` for local development.
 
-1. Fork the `oarepo-openid-connect/oarepo-openid-connect` repo on GitHub.
+1. Fork the `CESNET/invenio-openid-connect` repo on GitHub.
 2. Clone your fork locally:
 
    .. code-block:: console
 
-      $ git clone git@github.com:your_name_here/oarepo-openid-connect.git
+      $ git clone git@github.com:your_name_here/invenio-openid-connect.git
 
 3. Install your local copy into a virtualenv. Assuming you have
    virtualenvwrapper installed, this is how you set up your fork for local
@@ -74,8 +74,8 @@ Ready to contribute? Here's how to set up `oarepo-openid-connect` for local deve
 
    .. code-block:: console
 
-      $ mkvirtualenv oarepo-openid-connect
-      $ cd oarepo-openid-connect/
+      $ mkvirtualenv invenio-openid-connect
+      $ cd invenio-openid-connect/
       $ pip install -e .[all]
 
 4. Create a branch for local development:
@@ -120,5 +120,5 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring.
 3. The pull request should work for Python 2.7, 3.3, 3.4 and 3.5. Check
-   https://travis-ci.org/oarepo-openid-connect/oarepo-openid-connect/pull_requests
+   https://travis-ci.org/CESNET/invenio-openid-connect/pull_requests
    and make sure that the tests pass for all supported Python versions.

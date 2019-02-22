@@ -2,12 +2,12 @@
 #
 # Copyright (C) 2019 CESNET.
 #
-# OArepo OpenID Connect is free software; you can redistribute it and/or modify it
+# Invenio OpenID Connect is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Version information for OArepo OpenID Connect.
+"""Version information for Invenio OpenID Connect.
 
-This file is imported by ``oarepo_openid_connect.__init__``,
+This file is imported by ``invenio_openid_connect.__init__``,
 and parsed by ``setup.py``.
 """
 

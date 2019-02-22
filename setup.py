@@ -35,7 +35,7 @@ install_requires = [
     'Flask-BabelEx>=0.9.3',
     'invenio-records-rest>=1.1.0,<1.2.0',
     'arrow>=0.12.1',
-    'invenio_oauthclient>=1.1.2',
+    'invenio_oauthclient>=1.0.1',
     'invenio[{db},base,auth]~={version}'.format(
         db=DATABASE, version=INVENIO_VERSION),
 ]

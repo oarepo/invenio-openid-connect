@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Remote application for enabling sign in/up with OpenID Connect. """
+import traceback
 from typing import Optional
 from urllib.parse import urljoin
 
@@ -127,10 +128,11 @@ class InvenioAuthOpenIdRemote(object):
         :param remote: The remote application.
         :returns: A dictionary with the external user information
         """
+
         if not self.userinfo_cls:
             raise AttributeError('{}: userinfo_cls must be set'.format(self.name))
 
-        cached_user_info = session.pop('user_info', None)
+        cached_user_info = session.get('user_info')
         if cached_user_info:
             return cached_user_info
 

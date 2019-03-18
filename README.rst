@@ -8,14 +8,14 @@
  Invenio OpenID Connect
 =======================
 
-.. image:: https://img.shields.io/github/license/CESNET/invenio-openid-connect.svg
-        :target: https://github.com/CESNET/invenio-openid-connect/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/oarepo/invenio-openid-connect.svg
+        :target: https://github.com/oarepo/invenio-openid-connect/blob/master/LICENSE
 
-.. image:: https://img.shields.io/travis/CESNET/invenio-openid-connect.svg
-        :target: https://travis-ci.org/CESNET/invenio-openid-connect
+.. image:: https://img.shields.io/travis/oarepo/invenio-openid-connect.svg
+        :target: https://travis-ci.org/oarepo/invenio-openid-connect
 
-.. image:: https://img.shields.io/coveralls/CESNET/oarepo-openid-connect.svg
-        :target: https://coveralls.io/r/CESNET/invenio-openid-connect
+.. image:: https://img.shields.io/coveralls/oarepo/oarepo-openid-connect.svg
+        :target: https://coveralls.io/r/oarepo/invenio-openid-connect
 
 .. image:: https://img.shields.io/pypi/v/invenio-openid-connect.svg
         :target: https://pypi.org/pypi/invenio-openid-connect

@@ -69,5 +69,5 @@ deploy:
   on:
     tags: true
     python: "3.6"
-    repo: CESNET/invenio-openid-connect
+    repo: oarepo/invenio-openid-connect
     condition: $DEPLOY = true

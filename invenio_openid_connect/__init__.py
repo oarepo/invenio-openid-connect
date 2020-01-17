@@ -6,12 +6,12 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 
-"""Invenio OpenID Connect Auth Backend"""
+"""Invenio OpenID Connect Auth Backend."""
 
 from __future__ import absolute_import, print_function
 
 from .ext import InvenioOpenIDConnect
-from .version import __version__
 from .remote import InvenioAuthOpenIdRemote
+from .version import __version__
 
 __all__ = ('__version__', 'InvenioOpenIDConnect', 'InvenioAuthOpenIdRemote')

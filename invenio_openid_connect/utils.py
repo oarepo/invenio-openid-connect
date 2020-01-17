@@ -5,8 +5,8 @@
 # OARepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-""" Helper functions for OArepo OpenID Connect Auth backend """
-from flask_oauthlib.client import OAuthResponse, OAuthException
+"""Helper functions for OArepo OpenID Connect Auth backend."""
+from flask_oauthlib.client import OAuthException, OAuthResponse
 
 
 def get_dict_from_response(response: OAuthResponse) -> dict:

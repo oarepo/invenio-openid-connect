@@ -7,4 +7,4 @@
 Usage
 =====
 
-.. automodule:: oarepo_openid_connect
+.. automodule:: invenio_openid_connect

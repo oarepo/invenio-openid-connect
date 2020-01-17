@@ -6,6 +6,3 @@
 
 Configuration
 =============
-
-.. automodule:: oarepo_openid_connect.config
-   :members:

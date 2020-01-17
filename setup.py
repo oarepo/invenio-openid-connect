@@ -20,7 +20,7 @@ tests_require = [
 ]
 
 setup_requires = [
-    'Babel>=1.3',
+    'pytest-runner>=3.0.0,<5',
 ]
 
 install_requires = [
@@ -33,14 +33,17 @@ install_requires = [
 extras_require = {
     'tests': [
         'oarepo[tests]~={version}'.format(
-            version=OAREPO_VERSION)],
+            version=OAREPO_VERSION),
+        'pydocstyle>=5'
+    ],
     'tests-es7': [
         'oarepo[tests-es7]~={version}'.format(
-            version=OAREPO_VERSION)],
+            version=OAREPO_VERSION),
+        'pydocstyle>=5'
+    ],
 }
 
 packages = find_packages()
-
 
 # Get the version string. Cannot be done with import!
 g = {}

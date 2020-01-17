@@ -6,33 +6,3 @@
 
 API Docs
 ========
-
-Serializers
------------
-
-.. automodule:: oarepo_openid_connect.serializers
-   :members:
-
-Loaders
--------
-
-.. automodule:: oarepo_openid_connect.loaders
-   :members:
-
-Validation
-----------
-
-.. automodule:: oarepo_openid_connect.marshmallow
-   :members:
-
-Extension
----------
-
-.. automodule:: oarepo_openid_connect.ext
-   :members:
-
-Views
------
-
-.. automodule:: oarepo_openid_connect.views
-   :members:

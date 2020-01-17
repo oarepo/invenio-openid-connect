@@ -5,25 +5,28 @@
 # OARepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Remote application for enabling sign in/up with OpenID Connect. """
+"""Remote application for enabling sign in/up with OpenID Connect."""
 import traceback
 from typing import Optional
 from urllib.parse import urljoin
 
-from flask import session, current_app, redirect, url_for
+from flask import current_app, redirect, session, url_for
 from flask_login import current_user
 from flask_oauthlib.client import OAuthException, OAuthRemoteApp
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount
-from invenio_oauthclient.utils import oauth_link_external_id, oauth_unlink_external_id
+from invenio_oauthclient.utils import oauth_link_external_id, \
+    oauth_unlink_external_id
 from werkzeug.local import LocalProxy
 
 from .utils import get_dict_from_response
 
 
 class LazyOAuthRemoteApp(OAuthRemoteApp):
+    """OAuth remote app that can have lazy properties."""
 
     def __init__(self, *args, **kwargs):
+        """constructor."""
         super().__init__(*args, **{
             **kwargs,
             'app_key': 'dummy test'
@@ -38,10 +41,13 @@ class LazyOAuthRemoteApp(OAuthRemoteApp):
 
 
 class InvenioAuthOpenIdRemote(object):
-    """ Invenio OpenID Connect Abstract Remote App """
+    """Invenio OpenID Connect Abstract Remote App."""
 
     CONFIG_OPENID = 'OPENIDC_CONFIG'
+    """Config key for openid."""
+
     CONFIG_OPENID_CREDENTIALS = 'OPENIDC_CREDENTIALS'
+    """Config key for openid credentials."""
 
     name = 'OpenIDC'
     description = 'OpenID Connect'
@@ -49,6 +55,7 @@ class InvenioAuthOpenIdRemote(object):
     userinfo_cls = None
 
     def remote_app(self) -> dict:
+        """Configures and returns remote app."""
         return dict(
             title=self.name,
             description=self.description,
@@ -79,56 +86,57 @@ class InvenioAuthOpenIdRemote(object):
         )
 
     def get_base_url(self) -> str:
-        """Return base URL for an OpenIDC provider"""
+        """Return base URL for an OpenIDC provider."""
         return current_app.config[self.CONFIG_OPENID]['base_url']
 
     def get_request_token_url(self) -> Optional[str]:
-        """Return request token endpoint URL for an OpenIDC provider"""
-
+        """Return request token endpoint URL for an OpenIDC provider."""
         url = current_app.config[self.CONFIG_OPENID].get('request_token_url', None)
         if not url:
             return None
         return urljoin(self.get_base_url(), url)
 
     def get_access_token_url(self) -> str:
-        """Return access token endpoint for an OpenIDC provider"""
-        return urljoin(self.get_base_url(), current_app.config[self.CONFIG_OPENID].get('access_token_url', 'token'))
+        """Return access token endpoint for an OpenIDC provider."""
+        return urljoin(self.get_base_url(),
+                       current_app.config[self.CONFIG_OPENID].get('access_token_url', 'token'))
 
     def get_access_token_method(self) -> str:
-        """Return method of obtaining an access token"""
+        """Return method of obtaining an access token."""
         return current_app.config[self.CONFIG_OPENID].get('access_token_method', 'POST')
 
     def get_authorize_url(self) -> str:
-        """Return authorize endpoint for an OpenIDC provider"""
-        return urljoin(self.get_base_url(), current_app.config[self.CONFIG_OPENID].get('authorize_url', 'authorize'))
+        """Return authorize endpoint for an OpenIDC provider."""
+        return urljoin(self.get_base_url(),
+                       current_app.config[self.CONFIG_OPENID].get('authorize_url', 'authorize'))
 
     def get_userinfo_url(self) -> str:
-        """Return remote user info endpoint"""
-        return urljoin(self.get_base_url(), current_app.config[self.CONFIG_OPENID].get('userinfo_url', 'userinfo'))
+        """Return remote user info endpoint."""
+        return urljoin(self.get_base_url(),
+                       current_app.config[self.CONFIG_OPENID].get('userinfo_url', 'userinfo'))
 
     def get_scope(self):
-        """Return OpenID Connect client scopes"""
+        """Return OpenID Connect client scopes."""
         return current_app.config[self.CONFIG_OPENID].get('scope', 'openid email profile')
 
     def get_signature_method(self):
-        """Return oauth signature method"""
+        """Return oauth signature method."""
         return current_app.config[self.CONFIG_OPENID].get('signature_method', 'HMAC-SHA1')
 
     def get_consumer_key(self):
-        """Return oauth consumer key"""
+        """Return oauth consumer key."""
         return current_app.config[self.CONFIG_OPENID]['consumer_key']
 
     def get_consumer_secret(self):
-        """Return oauth consumer key"""
+        """Return oauth consumer key."""
         return current_app.config[self.CONFIG_OPENID]['consumer_secret']
 
     def get_userinfo(self, remote):
-        """ Retrieve external user information from the remote userinfo endpoint.
+        """Retrieve external user information from the remote userinfo endpoint.
 
         :param remote: The remote application.
         :returns: A dictionary with the external user information
         """
-
         if not self.userinfo_cls:
             raise AttributeError('{}: userinfo_cls must be set'.format(self.name))
 
@@ -143,7 +151,7 @@ class InvenioAuthOpenIdRemote(object):
         return user_info
 
     def get_user_id(self, remote, email: str = None) -> str:
-        """ Determine ID for a given user/email
+        """Determine ID for a given user/email.
 
         :param id_claim: Claim name containing user ID
         :param remote: The remote application.
@@ -202,12 +210,12 @@ class InvenioAuthOpenIdRemote(object):
             oauth_link_external_id(user, {'id': user_id, 'method': self.name})
 
     def handle_authorized(self, resp, remote, *args, **kwargs):
-        """Callback for handling user authorization"""
+        """Callback for handling user authorization."""
         from invenio_oauthclient.handlers import authorized_signup_handler
         return authorized_signup_handler(resp, remote, *args, **kwargs)
 
     def handle_signup(self, remote, *args, **kwargs):
-        """Callback for handling user signup"""
+        """Callback for handling user signup."""
         from invenio_oauthclient.handlers import signup_handler
         return signup_handler(remote, *args, **kwargs)
 

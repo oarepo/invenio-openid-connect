@@ -62,12 +62,11 @@ after_success:
 
 deploy:
   provider: pypi
-  user: TODO: PYPIUSERNAME
+  user: "__token__"
   password:
-    secure: TODO: PYPISECUREHASH
-  distributions: "compile_catalog sdist bdist_wheel"
+    secure: "I99leF/iN7OlowsNZPs/G9iqbklJYE9IEOCArtQex0Mp41tOAubSmMmxtSnNi5iorSSeW+sctAq7M/Jv1ON0iolKTxvjp/z96w41rDSQiDzX0gIpDxeSrhjSLOhkYbYJAz6FYTK3hXX99xEl6YXqiVmdii/LNLTK1ArxZAozrQOrmfR0vsrb8Wckkh45aKfDwXFm+6hIhAHbZEwl0nMgQo3e0pMGdcWIhBhgFstGih91gkk0H88OR5YcxsSQWfl1NdRXT6ukpmivesmvnsw0GWaqg0UQEfeSMh0ARzKIfct7iNhlAi+XkppnbC+As5vkNkwbfexzMabEJ0Ef8P/0guGeTNqrEkMdNrAdZ/0cmXCvjW8Cv71vFcloeM196yH/NskWDLWPS7FvJEd1nm1MZLt89wV4hH10EXf25DA8bsN/E9J4GRz6mwyTjs7fOrifE3Msx/uf/vHk0Lg0gvuZoTbGmYDa73OVWHB4q2xvJ6th+hkl4wPwNwWxRAikPdGSlORHGwGOcgKKOKrf2gY2sJ756268EDTQ4W7omCi+80aJ9VE1/oRYD4m61y1MQO2t4EUYWwsyvi1dmwEOl5Zan0XTbbXWReLCtXtew2YpJ9qt+XDbVWXy1mfrLGeKhErnbXf+lcziJihjrlyi+MOxDtWUZLZiKJSMeSybfAsItvM="
   on:
     tags: true
-    python: "3.6"
-    repo: oarepo/invenio-openid-connect
-    condition: $DEPLOY = true
+    branch: master
+  distributions: "sdist bdist_wheel"
+  skip_existing: true

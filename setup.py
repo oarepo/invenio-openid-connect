@@ -20,7 +20,7 @@ tests_require = [
 ]
 
 setup_requires = [
-    'pytest-runner>=3.0.0,<5',
+    'pytest-runner>=3.0.0,<6',
 ]
 
 install_requires = [

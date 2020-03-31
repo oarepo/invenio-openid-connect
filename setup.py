@@ -69,6 +69,9 @@ setup(
         'invenio_base.apps': [
             'invenio_openid_connect = invenio_openid_connect:InvenioOpenIDConnect',
         ],
+        'invenio_base.api_apps': [
+            'invenio_openid_connect = invenio_openid_connect:InvenioOpenIDConnect',
+        ],
     },
     install_requires=install_requires,
     setup_requires=setup_requires,

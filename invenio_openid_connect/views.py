@@ -21,5 +21,5 @@ def openid_login(remote_app):
 
 
 @blueprint.route('/authorized/<remote_app>/')
-def authorized(remote_app=None):
+def openid_authorized(remote_app=None):
     return authorized(remote_app)

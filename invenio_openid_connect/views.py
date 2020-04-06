@@ -6,7 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 from flask import Blueprint
-from invenio_oauthclient.views.client import login, authorized
+from invenio_oauthclient.views.client import login, authorized as _authorized
 
 
 blueprint = Blueprint(
@@ -21,5 +21,5 @@ def openid_login(remote_app):
 
 
 @blueprint.route('/authorized/<remote_app>/')
-def openid_authorized(remote_app=None):
-    return authorized(remote_app)
+def authorized(remote_app=None):
+    return _authorized(remote_app)

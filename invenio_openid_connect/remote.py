@@ -73,7 +73,7 @@ class InvenioAuthOpenIdRemote(object):
             remote_app=LazyOAuthRemoteApp,
             params=dict(
                 request_token_params={
-                    # 'scope': LocalProxy(lambda: self.get_scope()),
+                    'scope': LocalProxy(lambda: self.get_scope())
                     # 'show_login': 'true'
                 },
                 base_url=LocalProxy(lambda: self.get_base_url()),

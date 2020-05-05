@@ -37,6 +37,9 @@ class LazyOAuthRemoteApp(OAuthRemoteApp):
         ret = super()._get_property(key, default)
         if isinstance(ret, LocalProxy):
             ret = ret._get_current_object()
+        elif key == 'request_token_params':
+            if 'scope' in ret.keys() and isinstance(ret['scope'], LocalProxy):
+                ret['scope'] = ret['scope']._get_current_object()
         return ret
 
 

@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Remote application for enabling sign in/up with OpenID Connect."""
+import json
 import traceback
 from typing import Optional
 from urllib.parse import urljoin
@@ -135,6 +136,12 @@ class InvenioAuthOpenIdRemote(object):
         """Return oauth consumer key."""
         return current_app.config[self.CONFIG_OPENID]['consumer_secret']
 
+    def get_username_fields(self):
+        """Return oauth consumer key."""
+        return current_app.config[self.CONFIG_OPENID].get('username_fields', [
+            'username', 'preferred_username', 'sub', 'email'
+        ])
+
     def get_userinfo(self, remote):
         """Retrieve external user information from the remote userinfo endpoint.
 
@@ -150,9 +157,20 @@ class InvenioAuthOpenIdRemote(object):
 
         response = remote.get(self.get_userinfo_url())
         user_info = self.userinfo_cls(get_dict_from_response(response))
+        user_info.username = self.get_username(user_info)
         session['user_info'] = user_info
 
         return user_info
+
+    def get_username(self, user_info):
+        for fld in self.get_username_fields():
+            try:
+                return getattr(user_info, fld)
+            except:
+                pass
+        raise Exception(
+            'No username has been found in %s. '
+            'Please specify correct `username_fields` in the configuration' % json.dumps(user_info))
 
     def get_user_id(self, remote, email: str = None) -> str:
         """Determine ID for a given user/email.

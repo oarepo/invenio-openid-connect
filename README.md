@@ -36,6 +36,8 @@ OPENIDC_CONFIG = dict(
     # userinfo_url = f'${base_url}/userinfo'
     # scope = 'openid email profile'
     # signature_method = 'HMAC-SHA1'
+    # # fields that will be used as a source of username (in this order, first field with value wins)
+    # username_fields = ['username', 'preferred_username', 'sub', 'email']
 )
 
 OAUTHCLIENT_REST_REMOTE_APPS = dict(

@@ -26,7 +26,7 @@ class LazyOAuthRemoteApp(OAuthRemoteApp):
     """OAuth remote app that can have lazy properties."""
 
     def __init__(self, *args, **kwargs):
-        """construct new instance."""
+        """Construct new instance."""
         super().__init__(*args, **{
             **kwargs,
             'app_key': 'dummy test'

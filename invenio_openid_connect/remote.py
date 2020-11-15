@@ -55,7 +55,7 @@ class InvenioAuthOpenIdRemote(object):
     name = 'OpenIDC'
     description = 'OpenID Connect'
     icon = ''
-    userinfo_cls = None
+    userinfo_cls = dict
 
     def remote_app(self) -> dict:
         """Configures and returns remote app."""

@@ -27,6 +27,9 @@ def state():
             'language': get_locale().language
         }
     else:
+        ui = session.get('user_info', None)
+        if ui and not isinstance(ui, dict):
+            ui = ui.to_dict()
         resp = {
             'loggedIn': True,
             'user': {
@@ -39,7 +42,7 @@ def state():
                     } for x in current_user.roles
                 ]
             },
-            'userInfo': humps.camelize(session.get('user_info', None).to_dict()),
+            'userInfo': humps.camelize(ui) if ui else {},
             'language': get_locale().language
         }
 

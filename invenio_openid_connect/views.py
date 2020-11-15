@@ -5,37 +5,42 @@
 # OARepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint
-from invenio_oauthclient.views.client import login as _login, \
-    authorized as _authorized, \
-    signup as _signup, \
-    disconnect as _disconnect
-
+from flask import Blueprint, jsonify, session
+from flask_babelex import refresh, get_locale
+from flask_login import current_user
+import humps
 
 blueprint = Blueprint(
     'invenio_openid_connect',
     __name__,
-    url_prefix='/openid')
+    url_prefix='/oauth')
 
 
-@blueprint.route('/login/<remote_app>/')
-def login(remote_app):
-    """Send user to remote application for authentication."""
-    return _login(remote_app)
+@blueprint.route('/state/')
+def state():
+    refresh()
+    if current_user.is_anonymous:
+        resp = {
+            'loggedIn': False,
+            'user': None,
+            'userInfo': None,
+            'language': get_locale().language
+        }
+    else:
+        resp = {
+            'loggedIn': True,
+            'user': {
+                'id': current_user.id,
+                'email': current_user.email,
+                'roles': [
+                    {
+                        'id': x.name,
+                        'label': x.description
+                    } for x in current_user.roles
+                ]
+            },
+            'userInfo': humps.camelize(session.get('user_info', None).to_dict()),
+            'language': get_locale().language
+        }
 
-
-@blueprint.route('/authorized/<remote_app>/')
-def authorized(remote_app=None):
-    """Authorized handler callback."""
-    return _authorized(remote_app)
-
-@blueprint.route('/signup/<remote_app>/', methods=['GET', 'POST'])
-def signup(remote_app):
-    """Extra signup step."""
-    return _signup(remote_app)
-
-
-@blueprint.route('/disconnect/<remote_app>/')
-def disconnect(remote_app):
-    """Disconnect user from remote application."""
-    return _disconnect(remote_app)
+    return jsonify(resp)

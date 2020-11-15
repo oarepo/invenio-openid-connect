@@ -11,7 +11,7 @@ import os
 
 from setuptools import find_packages, setup
 
-readme = open('README.rst').read()
+readme = open('README.md').read()
 
 DATABASE = "postgresql"
 OAREPO_VERSION = os.environ.get('OAREPO_VERSION', '3.1.1')
@@ -28,6 +28,7 @@ install_requires = [
     'arrow>=0.12.1',
     'invenio-db>=1.0.0',
     'invenio_oauthclient>=1.0.1',
+    'pyhumps>=1.6.1'
 ]
 
 extras_require = {
@@ -56,7 +57,8 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
-    keywords='invenio-openid-connect Invenio',
+    long_description_content_type='text/markdown',
+    keywords='OpenID Invenio',
     license='MIT',
     author='Miroslav Bauer',
     author_email='bauer@cesnet.cz',

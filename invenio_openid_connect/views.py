@@ -4,11 +4,12 @@
 #
 # OARepo is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
+"""Definition of state view."""
 
-from flask import Blueprint, jsonify, session
-from flask_babelex import refresh, get_locale
-from flask_login import current_user
 import humps
+from flask import Blueprint, jsonify, session
+from flask_babelex import get_locale, refresh
+from flask_login import current_user
 
 blueprint = Blueprint(
     'invenio_openid_connect',
@@ -18,6 +19,11 @@ blueprint = Blueprint(
 
 @blueprint.route('/state/')
 def state():
+    """
+    State view.
+
+    :return: json with serialized information about the current user
+    """
     refresh()
     if current_user.is_anonymous:
         resp = {

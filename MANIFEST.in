@@ -14,5 +14,6 @@ recursive-include invenio_openid_connect *.po *.pot *.mo
 include *.md
 exclude *.sh
 include LICENSE
+include *.rst
 exclude pytest.ini
 recursive-exclude tests *.py

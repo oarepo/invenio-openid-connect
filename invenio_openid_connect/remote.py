@@ -26,7 +26,7 @@ class LazyOAuthRemoteApp(OAuthRemoteApp):
     """OAuth remote app that can have lazy properties."""
 
     def __init__(self, *args, **kwargs):
-        """constructor."""
+        """construct new instance."""
         super().__init__(*args, **{
             **kwargs,
             'app_key': 'dummy test'
@@ -58,7 +58,7 @@ class InvenioAuthOpenIdRemote(object):
     userinfo_cls = dict
 
     def remote_app(self) -> dict:
-        """Configures and returns remote app."""
+        """Configure and return remote app."""
         return dict(
             title=self.name,
             description=self.description,
@@ -213,12 +213,19 @@ class InvenioAuthOpenIdRemote(object):
             oauth_link_external_id(user, {'id': user_id, 'method': self.name})
 
     def handle_authorized(self, resp, remote, *args, **kwargs):
-        """Callback for handling user authorization."""
+        """Handle user authorization.
+
+        :param resp: User authorization response
+        :param remote: The remote application
+        """
         from invenio_oauthclient.handlers import authorized_signup_handler
         return authorized_signup_handler(resp, remote, *args, **kwargs)
 
     def handle_signup(self, remote, *args, **kwargs):
-        """Callback for handling user signup."""
+        """Handle signup.
+
+        :param remote: The remote application
+        """
         from invenio_oauthclient.handlers import signup_handler
         return signup_handler(remote, *args, **kwargs)
 

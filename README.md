@@ -1,8 +1,7 @@
 # Invenio OpenID Connect
 
 [![image][]][1]
-[![image][2]][3]
-[![image][4]][5]
+[![image][2]][3] <!-- [![image][4]][5] -->
 [![image][6]][7]
 
 

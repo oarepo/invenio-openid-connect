@@ -163,6 +163,7 @@ class InvenioAuthOpenIdRemote(object):
         return user_info
 
     def get_username(self, user_info):
+        """Determine username from user info."""
         for fld in self.get_username_fields():
             try:
                 return getattr(user_info, fld)

@@ -17,6 +17,7 @@ from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount
 from invenio_oauthclient.utils import oauth_link_external_id, \
     oauth_unlink_external_id
+from munch import AutoMunch
 from werkzeug.local import LocalProxy
 
 from .utils import get_dict_from_response
@@ -55,7 +56,7 @@ class InvenioAuthOpenIdRemote(object):
     name = 'OpenIDC'
     description = 'OpenID Connect'
     icon = ''
-    userinfo_cls = dict
+    userinfo_cls = AutoMunch
 
     def remote_app(self) -> dict:
         """Configure and return remote app."""

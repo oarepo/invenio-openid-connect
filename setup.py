@@ -28,7 +28,8 @@ install_requires = [
     'arrow>=0.12.1',
     'invenio-db>=1.0.0',
     'invenio_oauthclient>=1.0.1',
-    'pyhumps>=1.6.1'
+    'pyhumps>=1.6.1',
+    'munch>=2.5.0'
 ]
 
 extras_require = {

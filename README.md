@@ -16,7 +16,10 @@ $ pip install invenio-openid-connect
 
 ## Configuration
 
-At first add this client to your openid server and get key and secret.
+At first add this client to your openid server and get ``key`` and ``secret``.
+Do not forget to set the allowed redirect url to:
+
+``https://localhost:5000/api/oauth/authorized/openid/``
 
 Then configure the backend handler in invenio.cfg
 
@@ -24,9 +27,9 @@ Then configure the backend handler in invenio.cfg
 from invenio_openid_connect import InvenioAuthOpenIdRemote
 
 OPENIDC_CONFIG = dict(
-    base_url='https://<server>/openid/',
-    consumer_key='<client_key>',
-    consumer_secret='<client secret>',
+    base_url='https://<openid-server>/openid/',
+    consumer_key='<key from openid server>',
+    consumer_secret='<secret from openid server>',
     # request_token_url = base_url
     # access_token_url = f'${base_url}/token'
     # access_token_method = 'POST'
@@ -37,15 +40,17 @@ OPENIDC_CONFIG = dict(
 )
 
 OAUTHCLIENT_REST_REMOTE_APPS = dict(
-    # the class from above, the auth method will be called "cis"
+    # the class from above, the auth method will be called "openid"
     openid=InvenioAuthOpenIdRemote().remote_app(),
 )
 ```
 
+Note that the redirect uri above ends with ``openid`` - this is the same key as in ``OAUTHCLIENT_REST_REMOTE_APPS``.
+
 ## Usage
 
 After local configuration and allowing access at your , head in your browser to ``https://localhost:5000/api/oauth/login/openid?next=/api/oauth/state``
-(``openid`` is the key in ``OAUTHCLIENT_REST_REMOTE_APPS``). You should log in with your openid provider and be redirected to a state
+(``openid`` is the key in ``OAUTHCLIENT_REST_REMOTE_APPS``). You should log in with your openid provider and be redirected to state
 API which accesses your userinfo data.
 
 ### OpenID backend

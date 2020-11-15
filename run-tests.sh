@@ -9,5 +9,4 @@
 pydocstyle invenio_openid_connect tests && \
 isort -rc . && \
 check-manifest --ignore ".travis-*,docs/_build*" && \
-sphinx-build -qnNW docs docs/_build/html && \
 python setup.py test

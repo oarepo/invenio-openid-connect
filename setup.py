@@ -36,12 +36,7 @@ extras_require = {
         'oarepo[tests]~={version}'.format(
             version=OAREPO_VERSION),
         'pydocstyle>=5'
-    ],
-    'tests-es7': [
-        'oarepo[tests-es7]~={version}'.format(
-            version=OAREPO_VERSION),
-        'pydocstyle>=5'
-    ],
+    ]
 }
 
 packages = find_packages()

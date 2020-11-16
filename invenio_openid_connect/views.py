@@ -58,6 +58,11 @@ def state():
 
 @blueprint.route('/complete/')
 def complete():
+    """
+    Method called by @oarepo/vue-popup-login after login to pass back login info.
+
+    :return: http message with a bit of javascript
+    """
     if current_user.is_authenticated:
         login_complete = gettext("Login complete")
         user_logged_in = gettext("The login process has been completed and %(user)s has been logged in.", user=current_user.name)

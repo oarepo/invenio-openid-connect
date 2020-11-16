@@ -7,10 +7,9 @@
 """Definition of state view."""
 
 import humps
-from flask import Blueprint, jsonify, session, Response, make_response
-from flask_babelex import get_locale, refresh
+from flask import Blueprint, Response, jsonify, make_response, session
+from flask_babelex import get_locale, gettext, refresh
 from flask_login import current_user
-from flask_babelex import gettext
 
 blueprint = Blueprint(
     'invenio_openid_connect',

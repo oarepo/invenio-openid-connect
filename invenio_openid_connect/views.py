@@ -59,6 +59,7 @@ def state():
 def complete():
     """
     Redirect to this url after login has been completed to pass the login info.
+
     This url is called by @oarepo/vue-popup-login after login to notify the main window
     that the login process has been finished.
 

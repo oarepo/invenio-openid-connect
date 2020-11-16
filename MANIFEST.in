@@ -17,3 +17,4 @@ include LICENSE
 include *.rst
 exclude pytest.ini
 recursive-exclude tests *.py
+exclude babel.cfg

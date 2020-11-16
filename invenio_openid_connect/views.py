@@ -77,7 +77,9 @@ def complete():
             <html>
                 <body style="display: flex; justify-content: center;">
                     <div style="max-width: 400px;">
-                        <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">{login_complete}</h3>
+                        <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">
+                            {login_complete}
+                        </h3>
                         <div style="padding-top: 10px; padding-bottom: 10px;">
                             {user_logged_in}
                             <br><br>
@@ -109,7 +111,9 @@ def complete():
             <html>
                 <body style="display: flex; justify-content: center;">
                     <div style="max-width: 400px;">
-                        <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">{auth_failed}</h3>
+                        <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">
+                            {auth_failed}
+                        </h3>
                         <div style="padding-top: 10px; padding-bottom: 10px;">
                             {failed_expl}
                             <br><br>

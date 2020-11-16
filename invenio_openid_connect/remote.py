@@ -163,6 +163,7 @@ class InvenioAuthOpenIdRemote(object):
         return user_info
 
     def get_username(self, user_info):
+        """Determine username from user info."""
         for fld in self.get_username_fields():
             try:
                 return getattr(user_info, fld)
@@ -170,7 +171,8 @@ class InvenioAuthOpenIdRemote(object):
                 pass
         raise Exception(
             'No username has been found in %s. '
-            'Please specify correct `username_fields` in the configuration' % json.dumps(user_info))
+            'Please specify correct `username_fields` in the configuration' %
+            json.dumps(user_info))
 
     def get_user_id(self, remote, email: str = None) -> str:
         """Determine ID for a given user/email.

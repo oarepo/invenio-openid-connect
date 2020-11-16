@@ -67,9 +67,11 @@ def complete():
     """
     if current_user.is_authenticated:
         login_complete = gettext("Login complete")
-        user_logged_in = gettext("The login process has been completed and %(user)s has been logged in.", user=current_user.name)
+        user_logged_in = gettext("The login process has been completed "
+                                 "and %(user)s has been logged in.", user=current_user.name)
         close_window = gettext("This window should close automatically in a second.")
-        cannot_send_data = gettext("Could not send login data back to the application. Please close this window manually and reload the application")
+        cannot_send_data = gettext("Could not send login data back to the application. "
+                                   "Please close this window manually and reload the application")
 
         return make_response(f"""
             <html>
@@ -100,7 +102,8 @@ def complete():
         """)
     else:
         auth_failed = gettext("Authentication failed")
-        failed_expl = gettext("The authentication process failed. Please, close the application, reopen it and try again.")
+        failed_expl = gettext("The authentication process failed. "
+                              "Please, close the application, reopen it and try again.")
         support = gettext("If it does not help, please call the technical support.")
         return make_response(f"""
             <html>

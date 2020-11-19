@@ -7,7 +7,7 @@
 """Definition of state view."""
 
 import humps
-from flask import Blueprint, Response, jsonify, make_response, session
+from flask import Blueprint, Response, jsonify, make_response, session, request
 from flask_babelex import get_locale, gettext, refresh
 from flask_login import current_user
 
@@ -68,40 +68,62 @@ def complete():
     if current_user.is_authenticated:
         login_complete = gettext("Login complete")
         user_logged_in = gettext("The login process has been completed "
-                                 "and %(user)s has been logged in.", user=current_user.name)
+                                 "and %(user)s has been logged in.", user=session['user_info']['name'])
         close_window = gettext("This window should close automatically in a second.")
         cannot_send_data = gettext("Could not send login data back to the application. "
                                    "Please close this window manually and reload the application")
-
-        return make_response(f"""
-            <html>
-                <body style="display: flex; justify-content: center;">
-                    <div style="max-width: 400px;">
-                        <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">
-                            {login_complete}
-                        </h3>
-                        <div style="padding-top: 10px; padding-bottom: 10px;">
-                            {user_logged_in}
-                            <br><br>
-                            {close_window}
+        if request.args.get('next'):
+            redirecting = gettext('You are being redirected to the application. '
+                                  'If it does not happen in a couple of seconds, '
+                                  'click <a href="%(next)s">here</a>. ', next=request.args.get('next'))
+            resp = make_response(f"""
+                <html>
+                    <body style="display: flex; justify-content: center;">
+                        <div style="max-width: 400px;">
+                            <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">
+                                {login_complete}
+                            </h3>
+                            <div style="padding-top: 10px; padding-bottom: 10px;">
+                                {user_logged_in}
+                                <br><br>
+                                {redirecting}
+                            </div>
                         </div>
-                        <script>
-                            setTimeout(() => {{
-                                const bc = new BroadcastChannel('popup-login-channel');
-                                bc.postMessage({{
-                                    type: "login",
-                                    status: "${{state.authState.loggedIn ? 'success' : 'error'}}",
-                                    message: ""
-                                }})
+                    </body>
+                </html>
+            """, 302)
+            resp.headers['Location'] = request.args.get('next')
+            return resp
+        else:
+            return make_response(f"""
+                <html>
+                    <body style="display: flex; justify-content: center;">
+                        <div style="max-width: 400px;">
+                            <h3 style="border-bottom: 1px solid darkgreen; text-align: center; margin-bottom: 40px">
+                                {login_complete}
+                            </h3>
+                            <div style="padding-top: 10px; padding-bottom: 10px;">
+                                {user_logged_in}
+                                <br><br>
+                                {close_window}
+                            </div>
+                            <script>
                                 setTimeout(() => {{
-                                    alert('{cannot_send_data}')
-                                }}, 5000)
-                            }}, 1000)
-                        </script>
-                    </div>
-                </body>
-            </html>
-        """)
+                                    const bc = new BroadcastChannel('popup-login-channel');
+                                    bc.postMessage({{
+                                        type: "login",
+                                        status: "${{state.authState.loggedIn ? 'success' : 'error'}}",
+                                        message: ""
+                                    }})
+                                    setTimeout(() => {{
+                                        alert('{cannot_send_data}')
+                                    }}, 5000)
+                                }}, 1000)
+                            </script>
+                        </div>
+                    </body>
+                </html>
+            """)
     else:
         auth_failed = gettext("Authentication failed")
         failed_expl = gettext("The authentication process failed. "

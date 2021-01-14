@@ -7,6 +7,6 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 pydocstyle invenio_openid_connect tests && \
-isort -rc . && \
+isort -c invenio_openid_connect tests && \
 check-manifest --ignore ".travis-*" && \
 python setup.py test

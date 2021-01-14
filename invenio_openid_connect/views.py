@@ -7,7 +7,7 @@
 """Definition of state view."""
 
 import humps
-from flask import Blueprint, Response, jsonify, make_response, session, request
+from flask import Blueprint, Response, jsonify, make_response, request, session
 from flask_babelex import get_locale, gettext, refresh
 from flask_login import current_user
 

@@ -14,7 +14,7 @@ from setuptools import find_packages, setup
 readme = open('README.md').read()
 
 DATABASE = "postgresql"
-OAREPO_VERSION = os.environ.get('OAREPO_VERSION', '3.1.1')
+OAREPO_VERSION = os.environ.get('OAREPO_VERSION', '3.3.0')
 
 tests_require = [
 ]
@@ -24,19 +24,17 @@ setup_requires = [
 ]
 
 install_requires = [
-    'Flask-BabelEx>=0.9.4',
-    'arrow>=0.12.1',
-    'invenio-db>=1.0.0',
-    'invenio_oauthclient>=1.0.1',
+    'flask-oauthlib',
+    'invenio-oauthclient',
+    'munch',
     'pyhumps>=1.6.1',
-    'munch>=2.5.0'
 ]
 
 extras_require = {
     'tests': [
         'oarepo[tests]~={version}'.format(
             version=OAREPO_VERSION),
-        'pydocstyle>=5'
+#        'pydocstyle>=5'
     ]
 }
 

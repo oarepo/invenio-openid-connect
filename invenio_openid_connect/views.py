@@ -11,6 +11,8 @@ from flask import Blueprint, Response, jsonify, make_response, request, session
 from flask_babelex import get_locale, gettext, refresh
 from flask_login import current_user
 
+from invenio_openid_connect.signals import prepare_state_view_data
+
 blueprint = Blueprint(
     'invenio_openid_connect',
     __name__,
@@ -51,7 +53,7 @@ def state():
             'userInfo': humps.camelize(ui) if ui else {},
             'language': get_locale().language
         }
-
+    prepare_state_view_data.send(current_user, state=resp)
     return jsonify(resp)
 
 
